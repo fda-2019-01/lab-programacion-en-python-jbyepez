@@ -17,3 +17,17 @@
 ## ('9', ['A', 'B', 'C', 'E'])
 ##
 ##
+import itertools
+from operator import itemgetter
+
+csv = open('data.csv','r').readlines()
+csv = [line[:-1] for line in csv]
+csv = [line.split('\t') for line in csv]
+
+list = []
+for key, group in itertools.groupby(sorted([[row[1], row[0]] for row in csv]),itemgetter(0)):
+    values = [line[1] for line in group]
+    list.append((key,values))
+
+for row in list:
+    print(row)

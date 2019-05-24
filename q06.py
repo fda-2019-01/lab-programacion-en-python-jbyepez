@@ -13,3 +13,18 @@
 ## iii,2,7
 ## jjj,2,5
 ##
+import itertools
+from operator import itemgetter
+
+csv = open('data.csv','r').readlines()
+csv = [line[:-1] for line in csv]
+csv = [line.split('\t') for line in csv]
+
+allkeys = []
+for keyset in [line[4].split(',') for line in csv]:
+    allkeys += keyset
+allkeys = [key.split(':') for key in allkeys]
+
+for key, group in itertools.groupby(sorted(allkeys), itemgetter(0)):
+    values = [int(line[1]) for line in group]
+    print(key+','+str(min(values))+','+str(max(values)))

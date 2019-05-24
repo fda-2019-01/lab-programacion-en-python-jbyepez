@@ -15,3 +15,12 @@
 ## jjj,18
 ##
 ##
+import csv
+
+data = list(csv.reader(open('data.csv','r'), delimiter='\t'))
+
+registers = [pair.split(':')[0] for row in data for pair in row[4].split(',')]
+uniqueRegisters = set(registers)
+
+for register in sorted(uniqueRegisters):
+    print(register+','+str(registers.count(register)))
